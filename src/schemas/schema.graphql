@@ -1,0 +1,12 @@
+type Query {
+ hello: String
+}
+
+type Mutation {
+    add(input: NumbersInput): Float
+}
+
+input NumbersInput {
+    a: Float
+    b: Float
+}
