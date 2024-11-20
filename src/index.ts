@@ -23,14 +23,13 @@ async function bootstrap(): Promise<void> {
     app.use(RateLimit.default({ windowMs: 15 * 60 * 1000, max: 200 }));
     app.use(compression());
     app.use(morgan('combined'));
-    app.setGlobalPrefix('lt');
+    app.setGlobalPrefix('');
 
     const reflector = app.get(Reflector);
-    app.useGlobalInterceptors(new ClassSerializerInterceptor(reflector));
     app.useGlobalFilters(new HttpExceptionFilter(reflector), new QueryFailedFilter(reflector));
     app.useGlobalPipes(
         new ValidationPipe({
-          whitelist: true,
+          whitelist: false,
           transform: true,
           dismissDefaultMessages: true,
           validationError: { target: false },
